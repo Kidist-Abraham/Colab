@@ -1,5 +1,7 @@
 # Colab
 
+A collaboration platform for open source projects
+
 ## Schema
 
 [See schema](https://dbdiagram.io/d/624c4d07d043196e39fd1b67)
