@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block title %} Home {%endblock%}
+
+{% block content %} 
+
+    <a href="/users/{{user.username}}/project/add"> Add Project</a>
+
+    <h4>OR </h4>
+
+    <a class="nav-link" href="/projects">Collaborate to Projects</a>
+
+
+</ul>
+
+
+{% endblock %}

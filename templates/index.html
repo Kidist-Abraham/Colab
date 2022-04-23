@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Colab:Login</title>
+</head>
+<body>
+
+    <h1> Register or Login </h1>
+    {% for msg in get_flashed_messages()%}
+<h4 class="error"> {{msg}} </h4>
+{%endfor%}
+<li><a href="/register">Register</a></li>
+<li><a href="/login">Login</a></li>
+</body>
+</html>

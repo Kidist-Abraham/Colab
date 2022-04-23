@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+
+{% block title %} {{project.title}} {%endblock%}
+
+{% block content %} 
+
+{%if selfProject%}
+    <form action="/project/{{project.id}}/update" >  <button type="button" class="btn btn-secondary">Edit Project</button> </form> 
+    
+    <form method="POST" action="/project/{{project.id}}/delete" > <button type="button" class="btn btn-danger">Delete Project</button> </form> 
+{%endif%}
+
+<h1>{{project.title}}</h1>
+<p>{{project.description}}</p>
+<a href="https:github.com/{{project.git_repo}}"> Git URL</a>
+
+<p>Sector: {{project.sector.name}}</p>
+
+<h1>Stacks</h1>
+<ul>
+{%for stack in project.stacks%}
+
+<li>
+    {{stack.name}}
+</li>
+{%endfor%}
+</ul>
+
+<h1>Collaborators</h1>
+
+<ul>
+    {%for user in project.collaborators%}
+    
+    <li>
+        <a href="/user/{{user.username}}"> {{user.username}}</a>
+    </li>
+    {%endfor%}
+    </ul>
+
+{% endblock %}

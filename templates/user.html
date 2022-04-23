@@ -1,0 +1,43 @@
+{% extends 'base.html'%}
+
+{% block title %} Home {%endblock%}
+
+{% block content %} 
+
+    <a href="/users/{{user.username}}/project/add"> Add Project</a>
+
+    <h4>OR </h4>
+
+    <a class="nav-link" href="/projects">Collaborate to Projects</a>
+
+<h1>Projects</h1>
+<ul>
+{%for project in projects%}
+
+<li>
+    <a class="nav-link" href="/projects/{{project.id}}">{{project.title}}</a> 
+</li>
+{%endfor%}
+</ul>
+
+{% if not user.is_organisation %}
+<h1>Contributed to </h1>
+    <ul>
+    {%for project in collaborations%}
+    
+    <li>
+        <a class="nav-link" href="/projects/{{project.id}}">{{project.title}}</a> 
+    </li>
+{%endfor%}
+</ul>
+{% endif %}
+
+
+{%if is_self %}
+<h1>Account Actions</h1>
+    <a href="/users/{{user.username}}/edit"> Edit Profile</a>
+    <form method="POST" action="/users/{{user.username}}/delete" > <button>Delete Account</button> </form> 
+{%endif%}
+
+
+{% endblock %}
