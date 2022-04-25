@@ -14,7 +14,13 @@ def get_stacks(repo):
             headers=headers
        )
 
-    return [r for r in resp.json().keys()]
+    if resp.status_code == 200:
+        return [r for r in resp.json().keys()]
+
+    else:
+        return False
+   
+    
 
 
     
@@ -26,14 +32,18 @@ def get_collaborators(repo):
             url,
             headers=headers
        )
-    print(resp.json())
+    
+    if resp.status_code == 200:
+        contributors = [r["login"] for r in resp.json()]
+        return contributors
 
-    contributors = [r["login"] for r in resp.json()]
+    else:
+        return False
 
-    return contributors
+    
 
 
-def validate_git_handle(handle, email, is_org):
+def validate_git_handle_ownership(handle, email, is_org):
     url = f"{GIT_API_BASE_URL}/orgs/{handle}" if is_org else  f"{GIT_API_BASE_URL}/users/{handle}"
     headers = {'Accept': 'application/vnd.github.v3+json', 'Authorization' : f'token {TOKEN}'}
     resp = requests.get(

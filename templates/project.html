@@ -5,9 +5,9 @@
 {% block content %} 
 
 {%if selfProject%}
-    <form action="/project/{{project.id}}/update" >  <button type="button" class="btn btn-secondary">Edit Project</button> </form> 
+    <form action="/projects/{{project.id}}/update" >  <button type="button" class="btn btn-secondary">Edit Project</button> </form> 
     
-    <form method="POST" action="/project/{{project.id}}/delete" > <button type="button" class="btn btn-danger">Delete Project</button> </form> 
+    <form method="POST" action="/projects/{{project.id}}/delete" > <button type="button" class="btn btn-danger">Delete Project</button> </form> 
 {%endif%}
 
 <h1>{{project.title}}</h1>

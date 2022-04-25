@@ -2,9 +2,12 @@
 
 {% block title %} Home {%endblock%}
 
-{% block content %} 
 
-    <a href="/users/{{user.username}}/project/add"> Add Project</a>
+
+{% block content %} 
+<p>{{user.first_name}}</p>
+
+    <a href="/users/{{user.username}}/projects/add"> Add Project</a>
 
     <h4>OR </h4>
 

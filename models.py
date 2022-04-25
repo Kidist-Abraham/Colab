@@ -12,7 +12,7 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
 
-
+SECTORS = ["Education", "Transport", "Health", "Finance", "Social", "Entertainment", "Media", "Religion", "Culture", "Telecommunication", "Agriculture", "Construction", "Food", "Energy Industry"]
 
 class User(db.Model):
     __tablename__ = "users"
@@ -52,7 +52,7 @@ class User(db.Model):
         backref='collaborators'
     )
 
-    owned_projects = db.relationship("Project", backref='owner')
+    owned_projects = db.relationship("Project", cascade="all, delete-orphan", backref='owner')
 
     prefered_stacks =  db.relationship(
         'Stack',
@@ -158,6 +158,13 @@ class Sector(db.Model):
     name = db.Column(db.String,
                      nullable=False,
                       unique = True) 
+
+    
+    @classmethod
+    def add_stacks_to_db(cls):
+        sectors = [cls(name=sector) for sector in SECTORS]
+        db.session.add_all(sectors)
+        db.session.commit()
 
 class ProjectStack(db.Model):
     __tablename__ = "project_stacks"

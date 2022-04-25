@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, request, flash, session
 from models import db, connect_db, User, Project, Collaboration, ProjectStack, UserPreferenceSector, UserPreferenceStack, Sector, Stack
 from forms import RegisterUserForm, LoginUserForm, AddProjectForm, SectorPreferenceForm, StackPreferenceForm, PreferenceForm, UserProfileForm
-from git import get_stacks, get_collaborators, validate_git_handle, validate_repo_existence
+from git import get_stacks, get_collaborators, validate_git_handle_ownership, validate_repo_existence
 from schedule import start_scheduler, connect_scheduler
 
 app = Flask(__name__)
@@ -43,7 +43,7 @@ def register():
         git_handle = form.git_handle.data
         is_organisation = form.is_organisation.data
 
-        if validate_git_handle(git_handle,email,is_organisation):
+        if validate_git_handle_ownership(git_handle,email,is_organisation):
             new_user = User.register(username=username, email=email, first_name=first_name,last_name=last_name, password=password, git_handle = git_handle, is_organisation = is_organisation)
             db.session.add(new_user)
             db.session.commit()
@@ -146,7 +146,7 @@ def profile(username):
         flash("Access unauthorized.", "danger")
         return redirect("/")
 
-@app.route("/users/<username>/project/add", methods=["GET", "POST"])
+@app.route("/users/<username>/projects/add", methods=["GET", "POST"])
 def add_project(username):
     if check_user_session():
 
@@ -272,7 +272,7 @@ def show_own_projects():
         return redirect("/")
 
 
-@app.route("/project/<int:project_id>/update", methods=["GET", "POST"])
+@app.route("/projects/<int:project_id>/update", methods=["GET", "POST"])
 def update_project(project_id):
     if check_user_session():
 
@@ -300,7 +300,7 @@ def update_project(project_id):
         return redirect("/")
 
 
-@app.route("/project/<int:project_id>/delete", methods=["POST"])
+@app.route("/projects/<int:project_id>/delete", methods=["POST"])
 def delete_project(project_id):
     if check_user_session():
         username = session["username"]

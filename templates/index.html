@@ -6,7 +6,10 @@
     <title> Colab:Login</title>
 </head>
 <body>
-
+    {% for msg in get_flashed_messages()%}
+    <h4 class="error"> {{msg}} </h4>
+    
+    {%endfor%}
     <h1> Register or Login </h1>
     {% for msg in get_flashed_messages()%}
 <h4 class="error"> {{msg}} </h4>
