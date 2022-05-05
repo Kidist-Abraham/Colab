@@ -3,7 +3,8 @@
 {% block title %} Projects {%endblock%}
 
 {% block content %} 
-<a href="/users/{{username}}/projects/add"> Add Project</a>
+
+
 <form  method="POST">
     {{ form.hidden_tag() }} <!--add type=hidden form fields -->
   
@@ -12,7 +13,7 @@
   
       <p>
         {{ field.label }}
-        {{ field }}
+        {{ field(class_="form-control") }}
   
         {% for error in field.errors %}
           {{ error }}
@@ -21,18 +22,32 @@
   
     {% endfor %}
   
-    <button type="submit">Find Projects</button>
+    <button type="submit" class="btn btn-primary">Find Projects</button>
   </form>
 
 {%for project in projects%}
 
-<a href="/projects/{{project.id}}">{{project.title}}</a>
-<p>{{project.description}}</p>
-
-<p>Sector: {{project.sector.name}}</p>
+<div class="card" style="width: 18rem; margin-top: 20px; margin-left: 20px;">
+  <div class="card-body">
+    <h5 class="card-title">{{project.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{project.sector.name}}</h6>
+    <p class="card-text">{{project.description}}</p>
+    <a href="/projects/{{project.id}}" class="card-link">Show</a>
+  </div>
+</div>
 
 {%endfor%}
-
+<div class="row">
+<div class="col-sm-6">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Add Project</h5>
+      <p class="card-text">Add the projects you want contributers wants to see.</p>
+      <a href="/users/{{username}}/projects/add" class="btn btn-primary"> Add</a>
+    </div>
+  </div>
+</div>
+</div>
 
 
 {% endblock %}

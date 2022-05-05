@@ -7,39 +7,64 @@
 {% block content %} 
 <p>{{user.first_name}}</p>
 
-    <a href="/users/{{user.username}}/projects/add"> Add Project</a>
+<div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Add Project</h5>
+          <p class="card-text">Add the projects you want contributers wants to see.</p>
+          <a href="/users/{{user.username}}/projects/add" class="btn btn-primary"> Add</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Collaborate to Projects</h5>
+          <p class="card-text">Search projects that are open for contributers</p>
+          <a href="/projects" class="btn btn-primary">Seacrh</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <h4>OR </h4>
+  <h1>Projects</h1>
+  {%for project in projects%}
 
-    <a class="nav-link" href="/projects">Collaborate to Projects</a>
+<div class="card" style="width: 18rem; margin-top: 20px; margin-left: 20px;">
+  <div class="card-body">
+    <h5 class="card-title">{{project.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{project.sector.name}}</h6>
+    <p class="card-text">{{project.description}}</p>
+    <a href="/projects/{{project.id}}" class="card-link">Show</a>
+  </div>
+</div>
 
-<h1>Projects</h1>
-<ul>
-{%for project in projects%}
-
-<li>
-    <a class="nav-link" href="/projects/{{project.id}}">{{project.title}}</a> 
-</li>
 {%endfor%}
-</ul>
+
 
 {% if not user.is_organisation %}
 <h1>Contributed to </h1>
-    <ul>
+
     {%for project in collaborations%}
-    
-    <li>
-        <a class="nav-link" href="/projects/{{project.id}}">{{project.title}}</a> 
-    </li>
+    <div class="card" style="width: 18rem; margin-top: 20px; margin-left: 20px;">
+    <div class="card-body">
+      <h5 class="card-title">{{project.title}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{project.sector.name}}</h6>
+      <p class="card-text">{{project.description}}</p>
+      <a href="/projects/{{project.id}}" class="card-link">Show</a>
+    </div>
+  </div>
 {%endfor%}
-</ul>
+
 {% endif %}
 
 
 {%if is_self %}
-<h1>Account Actions</h1>
-    <a href="/users/{{user.username}}/edit"> Edit Profile</a>
-    <form method="POST" action="/users/{{user.username}}/delete" > <button>Delete Account</button> </form> 
+<h1 class="card-title">Account Actions</h1>
+    <form  action="/users/{{user.username}}/edit" > <button class="btn btn-primary">Edit Profile</button> </form> 
+    <form method="POST" action="/users/{{user.username}}/delete" > <button class="btn btn-danger">Delete Account</button> </form> 
+
 {%endif%}
 
 

@@ -5,36 +5,37 @@
 {% block content %} 
 
 {%if selfProject%}
-    <form action="/projects/{{project.id}}/update" >  <button type="button" class="btn btn-secondary">Edit Project</button> </form> 
+    <form action="/projects/{{project.id}}/update" >  <button  class="btn btn-secondary"> Edit Project</button> </form> 
     
-    <form method="POST" action="/projects/{{project.id}}/delete" > <button type="button" class="btn btn-danger">Delete Project</button> </form> 
+    <form method="POST" action="/projects/{{project.id}}/delete" > <button  class="btn btn-danger">Delete Project</button> </form> 
 {%endif%}
 
-<h1>{{project.title}}</h1>
-<p>{{project.description}}</p>
-<a href="https:github.com/{{project.git_repo}}"> Git URL</a>
 
-<p>Sector: {{project.sector.name}}</p>
+<div class="card" style="width: 30rem; margin-top: 20px; margin-left: 20px;">
+    <div class="card-body">
+      <h5 class="card-title">{{project.title}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{project.sector.name}}</h6>
+      <p class="card-text">{{project.description}}</p>
+      <a href="https:github.com/{{project.git_repo}}" class="card-link">Git URL</a>
+    </div>
 
-<h1>Stacks</h1>
-<ul>
-{%for stack in project.stacks%}
+    <div class="card-body">
+        <h5 class="card-title">Stacks</h5>
+        {%for stack in project.stacks%}
+        <p class="card-text">{{stack.name}}</p>
+        {%endfor%}
+      </div>
 
-<li>
-    {{stack.name}}
-</li>
-{%endfor%}
-</ul>
+      <div class="card-body">
+        <h5 class="card-title">Collaborators</h5>
+        {%for user in project.collaborators%}
+        <a href="/user/{{user.username}}" class="card-link">{{user.username}}</a>
+        {%endfor%}
+      </div>
 
-<h1>Collaborators</h1>
+  </div>
 
-<ul>
-    {%for user in project.collaborators%}
-    
-    <li>
-        <a href="/user/{{user.username}}"> {{user.username}}</a>
-    </li>
-    {%endfor%}
-    </ul>
+
+
 
 {% endblock %}

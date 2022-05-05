@@ -4,14 +4,26 @@
 
 {% block content %} 
 
-    <a href="/users/{{user.username}}/projects/add"> Add Project</a>
-
-    <h4>OR </h4>
-
-    <a class="nav-link" href="/projects">Collaborate to Projects</a>
-
-
-</ul>
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Add Project</h5>
+              <p class="card-text">Add the projects you want contributers wants to see.</p>
+              <a href="/users/{{user.username}}/projects/add" class="btn btn-primary"> Add</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Collaborate to Projects</h5>
+              <p class="card-text">Search projects that are open for contributers</p>
+              <a href="/projects" class="btn btn-primary">Seacrh</a>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 {% endblock %}
