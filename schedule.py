@@ -1,6 +1,7 @@
 from flask_apscheduler import APScheduler
 from git import get_stacks, get_collaborators
 from models import db, connect_db, User, Stack, Collaboration, Project
+from datetime import datetime
 
 # set configuration values
 class Config:
@@ -22,6 +23,7 @@ def connect_scheduler(app):
 
 @scheduler.task('cron', id='update_ptoject_stacks', day='*')
 def update_ptoject_stacks():
+    ''' Function to update the stack/languages used in all the repositeries '''
     with scheduler.app.app_context():
         projects = Project.query.all()
         for p in projects:
@@ -37,6 +39,7 @@ def update_ptoject_stacks():
 
 @scheduler.task('cron', id='update_ptoject_collabs', hour='*')
 def update_ptoject_collaborators():
+    ''' Function to update the contributers in all the repositeries '''
     with scheduler.app.app_context():
         projects = Project.query.all()
         for p in projects:
@@ -49,7 +52,21 @@ def update_ptoject_collaborators():
                 db.session.commit()
 
 
+'''
+@scheduler.task('cron', id='alert_users_on_new_projects', day='*')
+def alert_users_on_new_projects():
+    with scheduler.app.app_context():
+        #TODO filter projects that are created yesterday
+        projects = Project.query.filter(Project.timestamp).all()
+        for p in projects:
+            stacks = get_stacks(p.git_repo)
+            existing_stacks = [stack.name for stack in p.stacks]
+            new_stacks = [stack for stack in stacks if stack not in existing_stacks]
+            if len(new_stacks) > 0:
+                stacks_in_db = Stack.query.filter(Stack.name.in_(new_stacks)).all()
+                p.stacks.extend(stacks_in_db)
+                db.session.commit()
 
-
+'''
 def start_scheduler():
     scheduler.start()

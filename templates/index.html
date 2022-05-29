@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Colab:Login</title>
-</head>
-<body>
-    {% for msg in get_flashed_messages()%}
-    <h4 class="error"> {{msg}} </h4>
-    
-    {%endfor%}
-    <h1> Register or Login </h1>
-    {% for msg in get_flashed_messages()%}
-<h4 class="error"> {{msg}} </h4>
-{%endfor%}
-<li><a href="/register">Register</a></li>
-<li><a href="/login">Login</a></li>
-</body>
-</html>
+{% extends 'base_login.html'%}
+
+{% block title %} Login {%endblock%}
+
+{% block content %} 
+
+<h1 class="card-title">Register or Login </h1>
+  
+
+    <form  action="/register" > <button class="btn btn-primary">Register</button> </form> 
+    <form  action="/login" > <button class="btn btn-primary">Login</button> </form>
+
+{% endblock %}

@@ -34,7 +34,7 @@ class AddProjectForm(FlaskForm):
     title = StringField("Title", validators=[InputRequired()])
     description = StringField("Description")
     git_repo =  StringField("Repository name", validators=[InputRequired()])
-    sector = SelectField('What sector are you interested in ? ', coerce=int)
+    sector = SelectField('Choose the Sector of the Project ? ', coerce=int)
 
 
 class StackPreferenceForm(FlaskForm):
@@ -51,7 +51,15 @@ class SectorPreferenceForm(FlaskForm):
 
 
 class PreferenceForm(FlaskForm):
-    """Form for adding Preference"""
+    """Form for filtering Preference"""
+
+    sectors = SelectMultipleField('What sector are you interested in ? ', coerce=int)
+    stacks = SelectMultipleField('What stack are you interested in ? ', coerce=int)
+    show_preferences_only = BooleanField("Show preferred projects only") 
+
+
+class PreferenceFormOwnProject(FlaskForm):
+    """Form for filtering owned  Preference"""
 
     sectors = SelectMultipleField('What sector are you interested in ? ', coerce=int)
     stacks = SelectMultipleField('What stack are you interested in ? ', coerce=int)

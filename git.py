@@ -6,7 +6,7 @@ GIT_API_BASE_URL = "https://api.github.com"
 TOKEN=os.environ.get('GIT_TOKEN')
 
 def get_stacks(repo):
-    
+    ''' Returns the languages used in the repo '''
     url = f"{GIT_API_BASE_URL}/repos/{repo}/languages"
     headers = {'Accept': 'application/vnd.github.v3+json', 'Authorization' : f'token {TOKEN}'}
     resp = requests.get(
@@ -26,6 +26,8 @@ def get_stacks(repo):
     
 
 def get_collaborators(repo):
+    ''' Returns the contibuters' username of the repo '''
+
     url = f"{GIT_API_BASE_URL}/repos/{repo}/contributors"
     headers = {'Accept': 'application/vnd.github.v3+json', 'Authorization' : f'token {TOKEN}'}
     resp = requests.get(
@@ -44,6 +46,7 @@ def get_collaborators(repo):
 
 
 def validate_git_handle_ownership(handle, email, is_org):
+    ''' The function checks if the git handle/account exists and if the account is owned by the email'''
     url = f"{GIT_API_BASE_URL}/orgs/{handle}" if is_org else  f"{GIT_API_BASE_URL}/users/{handle}"
     headers = {'Accept': 'application/vnd.github.v3+json', 'Authorization' : f'token {TOKEN}'}
     resp = requests.get(
@@ -58,6 +61,7 @@ def validate_git_handle_ownership(handle, email, is_org):
 
 
 def validate_repo_existence(repo):
+    ''' The function checks if the git repo exists and is public'''
     url = f"{GIT_API_BASE_URL}/repos/{repo}" 
     headers = {'Accept': 'application/vnd.github.v3+json', 'Authorization' : f'token {TOKEN}'}
     resp = requests.get(

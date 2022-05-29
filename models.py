@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from datetime import datetime
 
 bcrypt = Bcrypt()
 
@@ -110,7 +111,13 @@ class Project(db.Model):
     id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
-
+    '''
+    timestamp = db.Column(
+        db.DateTime,
+        nullable=False,
+        default=datetime.utcnow(),
+    )
+    '''
     title = db.Column(db.String(100), 
                      nullable=False) 
 
