@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, redirect, request, flash, session
 from models import db, connect_db, User, Project, Collaboration, ProjectStack, UserPreferenceSector, UserPreferenceStack, Sector, Stack
 from forms import RegisterUserForm, LoginUserForm, AddProjectForm, SectorPreferenceForm, StackPreferenceForm, PreferenceForm, UserProfileForm, PreferenceFormOwnProject
@@ -5,8 +6,9 @@ from git import get_stacks, get_collaborators, validate_git_handle_ownership, va
 from schedule import start_scheduler, connect_scheduler
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '<fsa64ghfa78hjfa>'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///colab'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', '<fsa64ghfa78hjfa>')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL', 'postgresql:///colab')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
