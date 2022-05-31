@@ -8,7 +8,7 @@ from schedule import start_scheduler, connect_scheduler
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', '<fsa64ghfa78hjfa>')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    'DATABASE_URL', 'postgresql:///colab')
+    'DATABASE_URL', 'postgres:///colab').replace("://", "ql://", 1)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
