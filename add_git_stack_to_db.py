@@ -1,6 +1,11 @@
+import os
 from models import db, connect_db, Stack
 from app import app
 connect_db(app)
+
+
+PATH = os.environ.get(
+    'LANGUAGE_FILE_PATH', '/Users/kidistabraham/Springboard/Colab/scripts/languages.txt')
 
 def get_words(path):
         f = open(path,"r")

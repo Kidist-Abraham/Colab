@@ -46,6 +46,7 @@ def update_ptoject_collaborators():
             collabs = get_collaborators(p.git_repo)
             existing_collabs = [collab.git_handle for collab in p.collaborators]
             new_collabs = [collab for collab in collabs if collab not in existing_collabs] 
+            #TODO handle removed collabs
             if len(new_collabs) > 0:
                 collabs_in_db = User.query.filter(User.git_handle.in_(new_collabs)).all()
                 p.collaborators.extend(collabs_in_db)
