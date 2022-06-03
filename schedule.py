@@ -46,10 +46,16 @@ def update_ptoject_collaborators():
             collabs = get_collaborators(p.git_repo)
             existing_collabs = [collab.git_handle for collab in p.collaborators]
             new_collabs = [collab for collab in collabs if collab not in existing_collabs] 
-            #TODO handle removed collabs
+            to_be_removed_collabs = [collab for collab in existing_collabs if collab not in collabs]
+ 
             if len(new_collabs) > 0:
                 collabs_in_db = User.query.filter(User.git_handle.in_(new_collabs)).all()
                 p.collaborators.extend(collabs_in_db)
+                db.session.commit()
+
+            if len(to_be_removed_collabs) > 0:
+                collabs_in_db = [u.username for u in User.query.filter(User.git_handle.in_(to_be_removed_collabs)).all()]
+                Collaboration.query.filter(Collaboration.username.in_(collabs_in_db) & Collaboration.project_id == p.id).delete()
                 db.session.commit()
 
 
