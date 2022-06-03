@@ -15,7 +15,7 @@ def get_words(path):
 
 
 def add_to_db():
-    words = get_words("/Users/kidistabraham/Springboard/Colab/scripts/languages.txt")
+    words = get_words(PATH)
     words_db = [Stack(name=word) for word in words]
     db.session.add_all(words_db)
     db.session.commit()
