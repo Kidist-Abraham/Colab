@@ -22,7 +22,7 @@ def connect_scheduler(app):
 
 
 @scheduler.task('cron', id='update_ptoject_stacks', day='*')
-def update_ptoject_stacks():
+def update_project_stacks():
     ''' Function to update the stack/languages used in all the repositeries '''
     with scheduler.app.app_context():
         projects = Project.query.all()
@@ -38,7 +38,7 @@ def update_ptoject_stacks():
 
 
 @scheduler.task('cron', id='update_ptoject_collabs', hour='*')
-def update_ptoject_collaborators():
+def update_project_collaborators():
     ''' Function to update the contributers in all the repositeries '''
     with scheduler.app.app_context():
         projects = Project.query.all()

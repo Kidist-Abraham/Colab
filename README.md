@@ -7,6 +7,38 @@ A collaboration platform for open source projects.
 This we application facilitates collaboration on open source projects among developers around the world.
 It helps people to have a place to announce a project that they make open for collaboration. It also helps people who want to collaborate on open source projects to have a place to find projects that align with their needs
 
+## Run the app
+
+1. Create db
+
+`createdb colab`
+
+
+2. Create Python virtual environment and install libraries.
+
+Run the following
+
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirement.txt 
+```
+
+3. initialize stack and sector tables
+
+Run
+
+```
+python add_git_stack_to_db.py
+python add_sectors_to_db.py
+```
+
+4. Run the app
+
+`flask run`
+
+
+
 ## Features 
 
 - Register/login as a user
